@@ -1,6 +1,7 @@
+import {Decimal} from 'decimal.js'
 
-
-const GenerateTableASI = () => {
+const GenerateTableASI = () => 
+{
     // Letras maiúsculas
     let letrasMaiusculas = [];
     for (let i = 65; i <= 90; i++) {
@@ -38,7 +39,71 @@ const GenerateTableASI = () => {
     let arrayCompleto = letrasMaiusculas.concat(letrasMinusculas, numeros, caracteresEspeciais);
 
     return arrayCompleto;
-
 }
 
-export {GenerateTableASI};
+const ConvertToByteHash = (stringText) => 
+{
+    let byteHash = "";
+    let arrayText = Array.from(stringText);
+    let arrayByteHash = GenerateTableASI();
+
+    arrayText.forEach(letter => {
+        if(arrayByteHash.indexOf(letter) < 10)
+            byteHash += `0${arrayByteHash.indexOf(letter)}`;
+        else
+            byteHash += `${arrayByteHash.indexOf(letter)}`;
+    });
+
+    return byteHash;
+}
+
+const ConvertByteHashToText = (stringHash) => 
+{
+    let stringText = "";
+    let arrayHash = [];
+    let arrayByteHash = GenerateTableASI();
+
+    for (let i = 0; i < stringHash.length; i += 2) {
+        let par = stringHash.substr(i, 2);
+        arrayHash.push(par);
+    }
+
+    console.log(arrayHash)
+
+    arrayHash.forEach(byte => {
+        stringText += arrayByteHash[parseInt(byte)];
+    });
+
+    return stringText;
+}
+
+const CompressText = (text) => {
+    const command = {
+        base: 1, 
+        sort: 101, 
+        decimal: null, 
+        counter: 0, 
+        maxCounter: 99, 
+        found: false
+    };
+
+    while(!command.found && command.counter <= command.maxCounter) 
+    {
+        command.counter += 1;
+
+        console.log(`searching: ${command.counter} -- sort: ${command.sort}`);
+
+        command.decimal = new Decimal(command.base).dividedBy(command.sort);
+
+        command.found = command.decimal.toString().includes(text);
+
+        command.sort += 3.2;
+    }
+
+    if(command.found)
+        console.log(`found in: ${command.decimal}`);
+    else
+        console.log("not found");
+}
+
+export {GenerateTableASI, ConvertToByteHash, ConvertByteHashToText, CompressText}

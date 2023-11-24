@@ -12,8 +12,7 @@ const GenerateDictionary = () => {
             dictionary[`${i}`] = tableASI[i];
         } 
     }
-
-    console.log(dictionary);
+    
     return dictionary;
 }
 
