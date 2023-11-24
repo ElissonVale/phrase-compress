@@ -1,5 +1,7 @@
 import {Decimal} from 'decimal.js'
 
+Decimal.set({ precision: 9999999 });
+
 const GenerateTableASI = () => 
 {
     // Letras maiúsculas
@@ -80,7 +82,7 @@ const ConvertByteHashToText = (stringHash) =>
 const CompressText = (text) => {
     const command = {
         base: 1, 
-        sort: 101, 
+        sort: .1, 
         decimal: null, 
         counter: 0, 
         maxCounter: 99, 
@@ -97,7 +99,7 @@ const CompressText = (text) => {
 
         command.found = command.decimal.toString().includes(text);
 
-        command.sort += 3.2;
+        command.sort++;
     }
 
     if(command.found)
