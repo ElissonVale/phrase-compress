@@ -4,9 +4,9 @@ let myHash = ConvertToByteHash("Hello guys, my name is Elisson Vale, and i am de
 
 console.log(`hash: ${myHash}`);
 
-// let mytext = ConvertByteHashToText(myHash);
+let mytext = ConvertByteHashToText(myHash);
 
-// console.log(`text hash umpress: ${mytext}`);
+console.log(`text hash umpress: ${mytext}`);
 
 CompressText(myHash);
 
